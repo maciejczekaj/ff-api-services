@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { APIClient, APIMapping } from '../http';
+import { v4 as uuid } from 'uuid/interfaces';
 
 export class SearchProfileService extends APIClient {
     constructor() {
@@ -87,6 +88,22 @@ export class SearchProfileService extends APIClient {
      */
     async deleteSearchProfile(searchProfileId: string) : Promise<AxiosResponse> {
         return this.invokeApi(`/search-profiles/${searchProfileId}`, 'DELETE', undefined);
+    }
+
+    /**
+     * TODO: Please comment this method
+     * @param searchProfile
+     */
+    async searchEntities(searchProfile: any) : Promise<AxiosResponse> {
+        return this.invokeApi(`/search`, 'POST', searchProfile);
+    }
+
+    /**
+     * TODO: Please comment this method
+     * @param searchProfile
+     */
+    async reverseSearchEntities(searchProfile: any, schemaGroup: string = 'estates', entityId: uuid) : Promise<AxiosResponse> {
+        return this.invokeApi(`/search/reverse/${schemaGroup}/entity/${entityId}`, 'POST', searchProfile);
     }
 }
 
